@@ -166,8 +166,11 @@ function getWeekKey(d=new Date()){
 }
 
 function formatWeekLabel(key){
-  const parts=key.split("-");
+  if(!key||typeof key!=="string")return"Unknown Week";
+  const parts=key.trim().split("-");
+  if(parts.length<3)return key;
   const y=parseInt(parts[0]),m=parseInt(parts[1])-1,d=parseInt(parts[2]);
+  if(isNaN(y)||isNaN(m)||isNaN(d))return key;
   const start=new Date(y,m,d);
   const end=new Date(y,m,d+6);
   const o={month:"short",day:"numeric"};
